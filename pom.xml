@@ -2,13 +2,19 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>junit-branch-rule</groupId>
-  <artifactId>junit-branch-rule</artifactId>
+  <groupId>junit-test-branches</groupId>
+  <artifactId>junit-test-branches</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>JUnit Branch Rule</name>
-  
+  <name>JUnit Test Branches</name>
+  <description>
+    A test utility for execution branching in JUnit test methods.
+    
+    It supports dead end branches, that cut execution at their end, and merge back ones,
+    that continue after the branch point.
+  </description>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
