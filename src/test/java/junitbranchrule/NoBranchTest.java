@@ -1,4 +1,4 @@
-package junitbrancher;
+package junitbranchrule;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,17 +8,12 @@ import java.io.StringWriter;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-public class BranchTest extends AbstractBrancherRuleTest {
+public class NoBranchTest extends AbstractBranchRuleTest {
 
 	@Test
 	public void simpleBranch() throws Exception {
 
 		print("restart");
-		brancher.branch(new Runnable() {
-			public void run() {
-				print("111");
-			}
-		});
 		print("end");
 	}
 
@@ -26,9 +21,6 @@ public class BranchTest extends AbstractBrancherRuleTest {
 	public static void tearDownAfterClass() throws Exception {
 		StringWriter expected = new StringWriter();
 		PrintWriter p = new PrintWriter(expected);
-		p.println("---");
-		p.println("restart");
-		p.println("111");
 		p.println("---");
 		p.println("restart");
 		p.println("end");

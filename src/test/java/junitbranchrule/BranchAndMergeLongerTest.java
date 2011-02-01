@@ -1,4 +1,4 @@
-package junitbrancher;
+package junitbranchrule;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-public class BranchAndMergeLongerTest extends AbstractBrancherRuleTest {
+public class BranchAndMergeLongerTest extends AbstractBranchRuleTest {
 
 	@Test
 	public void simpleBranch() throws Exception {

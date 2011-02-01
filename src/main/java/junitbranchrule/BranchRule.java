@@ -1,4 +1,4 @@
-package junitbrancher;
+package junitbranchrule;
 
 import java.util.LinkedHashSet;
 
@@ -6,7 +6,7 @@ import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
-public class BrancherRule implements MethodRule {
+public class BranchRule implements MethodRule {
 
 	private class BranchDoneSignalException extends RuntimeException {
 	}
