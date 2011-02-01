@@ -6,52 +6,31 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
 
-public class BrancherRuleTest {
-
-	private static StringWriter out;
-	private static PrintWriter printer;
-
-	@Rule
-	public BrancherRule brancher = new BrancherRule();
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		out = new StringWriter();
-		printer = new PrintWriter(out);
-	}
-
-	@Before
-	public void setUp() throws Exception {
-		printer.println("---");
-	}
+public class BranchLongerTest extends AbstractBrancherRuleTest {
 
 	@Test
-	public void branchMe() throws Exception {
+	public void simpleBranch() throws Exception {
 
-		printer.println("restart");
-
+		print("restart");
 		brancher.branch(new Runnable() {
 			public void run() {
-				printer.println("111");
+				print("111");
 				brancher.branch(new Runnable() {
 					public void run() {
-						printer.println("AAAA");
+						print("AAAA");
 					}
 				});
-				printer.println("111 - ordinary end");
+				print("111 - ordinary end");
 			}
 		});
 		brancher.branch(new Runnable() {
 			public void run() {
-				printer.println("222");
+				print("222");
 			}
 		});
-		printer.println("end");
+		print("end");
 	}
 
 	@AfterClass
