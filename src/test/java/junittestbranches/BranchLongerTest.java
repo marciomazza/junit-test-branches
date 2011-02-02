@@ -1,10 +1,5 @@
 package junittestbranches;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import org.junit.AfterClass;
 import org.junit.Test;
 
@@ -13,45 +8,31 @@ public class BranchLongerTest extends AbstractBranchRuleTest {
 	@Test
 	public void simpleBranch() throws Exception {
 
-		print("restart");
+		print("A");
 		brancher.branch(new Runnable() {
 			public void run() {
-				print("111");
+				print("1");
 				brancher.branch(new Runnable() {
 					public void run() {
-						print("AAAA");
+						print("#");
 					}
 				});
-				print("111 - ordinary end");
+				print("2");
 			}
 		});
+		print("B");
 		brancher.branch(new Runnable() {
 			public void run() {
-				print("222");
+				print("3");
 			}
 		});
-		print("end");
+		print("C");
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		StringWriter expected = new StringWriter();
-		PrintWriter p = new PrintWriter(expected);
-		p.println("---");
-		p.println("restart");
-		p.println("111");
-		p.println("AAAA");
-		p.println("---");
-		p.println("restart");
-		p.println("111");
-		p.println("111 - ordinary end");
-		p.println("---");
-		p.println("restart");
-		p.println("222");
-		p.println("---");
-		p.println("restart");
-		p.println("end");
-		assertEquals(expected.toString(), out.toString());
+
+		checkWalkedPaths("A 1 #", "A 1 2", "A B 3", "A B C");
 	}
 
 }

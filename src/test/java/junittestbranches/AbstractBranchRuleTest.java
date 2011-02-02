@@ -1,35 +1,40 @@
 package junittestbranches;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import static org.junit.Assert.assertEquals;
 
-import junittestbranches.BranchRule;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 
 public abstract class AbstractBranchRuleTest {
 
-	protected static StringWriter out;
-	private static PrintWriter printer;
+	private final static List<String> walkedPaths = new ArrayList<String>(5);
+	private String path = "";
 
 	@Rule
 	public BranchRule brancher = new BranchRule();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		out = new StringWriter();
-		printer = new PrintWriter(out);
+		walkedPaths.clear();
 	}
 
-	@Before
-	public void setUp() throws Exception {
-		print("---");
+	@After
+	public void tearDown() {
+		walkedPaths.add(path.trim());
+		path = "";
 	}
 
 	protected void print(String s) {
-		printer.println(s);
+		path = path + s + " ";
+	}
+
+	protected static void checkWalkedPaths(String... expectedPaths) {
+		assertEquals(Arrays.asList(expectedPaths), walkedPaths);
 	}
 
 }
