@@ -1,9 +1,9 @@
-package junitbranchrule;
+package junittestbranches;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import junitbranchrule.BranchRule;
+import junittestbranches.BranchRule;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

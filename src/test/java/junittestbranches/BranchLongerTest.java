@@ -1,4 +1,4 @@
-package junitbranchrule;
+package junittestbranches;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-public class BranchTest extends AbstractBranchRuleTest {
+public class BranchLongerTest extends AbstractBranchRuleTest {
 
 	@Test
 	public void simpleBranch() throws Exception {
@@ -17,6 +17,17 @@ public class BranchTest extends AbstractBranchRuleTest {
 		brancher.branch(new Runnable() {
 			public void run() {
 				print("111");
+				brancher.branch(new Runnable() {
+					public void run() {
+						print("AAAA");
+					}
+				});
+				print("111 - ordinary end");
+			}
+		});
+		brancher.branch(new Runnable() {
+			public void run() {
+				print("222");
 			}
 		});
 		print("end");
@@ -29,6 +40,14 @@ public class BranchTest extends AbstractBranchRuleTest {
 		p.println("---");
 		p.println("restart");
 		p.println("111");
+		p.println("AAAA");
+		p.println("---");
+		p.println("restart");
+		p.println("111");
+		p.println("111 - ordinary end");
+		p.println("---");
+		p.println("restart");
+		p.println("222");
 		p.println("---");
 		p.println("restart");
 		p.println("end");

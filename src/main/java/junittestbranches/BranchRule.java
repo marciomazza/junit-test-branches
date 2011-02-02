@@ -1,4 +1,4 @@
-package junitbranchrule;
+package junittestbranches;
 
 import java.util.LinkedHashSet;
 

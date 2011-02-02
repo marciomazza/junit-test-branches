@@ -1,4 +1,4 @@
-package junitbranchrule;
+package junittestbranches;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-public class BranchLongerTest extends AbstractBranchRuleTest {
+public class BranchAndMergeLongerTest extends AbstractBranchRuleTest {
 
 	@Test
 	public void simpleBranch() throws Exception {
@@ -17,7 +17,7 @@ public class BranchLongerTest extends AbstractBranchRuleTest {
 		brancher.branch(new Runnable() {
 			public void run() {
 				print("111");
-				brancher.branch(new Runnable() {
+				brancher.branchAndMerge(new Runnable() {
 					public void run() {
 						print("AAAA");
 					}
@@ -25,7 +25,7 @@ public class BranchLongerTest extends AbstractBranchRuleTest {
 				print("111 - ordinary end");
 			}
 		});
-		brancher.branch(new Runnable() {
+		brancher.branchAndMerge(new Runnable() {
 			public void run() {
 				print("222");
 			}
@@ -41,13 +41,15 @@ public class BranchLongerTest extends AbstractBranchRuleTest {
 		p.println("restart");
 		p.println("111");
 		p.println("AAAA");
+		p.println("111 - ordinary end"); // NOTE THAT IT CONTINUES AFTER "AAAA" because of the "merge"
 		p.println("---");
 		p.println("restart");
 		p.println("111");
 		p.println("111 - ordinary end");
 		p.println("---");
 		p.println("restart");
-		p.println("222");
+		p.println("222"); // NOTE THAT IT CONTINUES AFTER "222" because of the "merge"
+		p.println("end");
 		p.println("---");
 		p.println("restart");
 		p.println("end");
