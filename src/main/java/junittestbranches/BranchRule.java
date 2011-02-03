@@ -1,7 +1,10 @@
 package junittestbranches;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
+import org.junit.internal.runners.model.MultipleFailureException;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
@@ -44,6 +47,16 @@ public class BranchRule implements MethodRule {
 						}
 					} catch (BranchDoneSignalException e) {
 						continue;
+					} catch (MultipleFailureException multiple) {
+						// remove our cut signaling exception if necessary
+						for (Throwable failure : multiple.getFailures()) {
+							if (BranchDoneSignalException.class.equals(failure.getClass())) {
+								List<Throwable> withoutSignal = new ArrayList<Throwable>(multiple.getFailures());
+								withoutSignal.remove(failure);
+								throw new MultipleFailureException(withoutSignal);
+							}
+						}
+						throw multiple;
 					}
 				}
 			}
