@@ -1,15 +1,24 @@
 # JUnit Test Branches
 
-This project provides a simple way to express and execute different branches in a single JUnit test method.
-It supports dead end branches (that cut execution at their end), and merge back branches (that continue after the branch point).
+## Experiment
+This is **an experiment** around a simple way to express and execute different branches in a single JUnit test method.
+The implementation supports dead end branches (that cut execution at their end), and merge back branches (that continue after the branch point).
 
+## Purpose
+I don't really no if this might useful at all. This came to my mind because of continuations (which it is not) and for defining some sorts of user interaction tests, that tend to have much flux ramification. I still have to try this, though. 
+
+## Implementation
 This is implemented in a rather simple way by [BranchRule](https://github.com/marciomazza/junit-test-branches/blob/master/src/main/java/junittestbranches/BranchRule.java), a [JUnit method rule](http://kentbeck.github.com/junit/javadoc/latest/org/junit/rules/MethodRule.html).
 
 Branches are defined by passing `Runnable` arguments to the rule methods `branch` and `branchAndMerge`. They can be nested and are visited exactly once, in depth-first order.
 
 The iteration is done by executing the method just as many times as needed to visit each branch. Each execution respects the normal JUnit decorations, including `@Before`, `@After` and other `@Rule`s.
 
-## Example
+## Limitations
+1. You've got to pass a new `Runnable` for each `branch()` call. Don't reuse instances.
+2. You should not nest a `branch()` call inside a loop: it would be visited just in the first pass.
+
+## Examples
 ### Dead end branch
 
 In the following, the test method will be executed twice:
